@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 480px;">
+        <h3 class="text-center mb-4">Iniciar Sesión</h3>
+        <form id="login-form" novalidate>
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" required>
+                <div class="invalid-feedback">Ingresa un correo válido.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" required>
+                    <button class="btn btn-outline-secondary toggle-password" type="button">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <div class="invalid-feedback">Ingresa tu contraseña.</div>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="remember">
+                <label class="form-check-label" for="remember">Recuérdame</label>
+            </div>
+
+            <div class="mb-3 text-end">
+                <a href="/recuperar-contrasena">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary" id="login-btn">
+                    <span class="spinner-border spinner-border-sm d-none" id="spinner" role="status" aria-hidden="true"></span>
+                    <span id="btn-text">Iniciar Sesión</span>
+                </button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <p>¿No tienes una cuenta? <a href="/registro">Regístrate</a></p>
+        </div>
+
+        <div class="alert alert-danger d-none mt-3" id="error-alert"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("login-form");
+            const email = document.getElementById("email");
+            const password = document.getElementById("password");
+            const btn = document.getElementById("login-btn");
+            const spinner = document.getElementById("spinner");
+            const btnText = document.getElementById("btn-text");
+            const errorAlert = document.getElementById("error-alert");
+
+            document.querySelector('.toggle-password').addEventListener('click', function () {
+                const input = this.parentElement.querySelector('input');
+                const icon = this.querySelector('i');
+                input.type = input.type === 'password' ? 'text' : 'password';
+                icon.classList.toggle('bi-eye');
+                icon.classList.toggle('bi-eye-slash');
+            });
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                form.classList.remove("was-validated");
+                errorAlert.classList.add("d-none");
+
+                if (!form.checkValidity()) {
+                    form.classList.add("was-validated");
+                    return;
+                }
+
+                btn.disabled = true;
+                spinner.classList.remove("d-none");
+                btnText.textContent = "Ingresando...";
+
+                try {
+                    const response = await fetch("/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: email.value.trim(),
+                            password: password.value
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) throw new Error(result.message || "Error desconocido");
+
+                    // Redirigir según el rol
+                    if (result.rol === "admin") {
+                        window.location.href = "/administrador";
+                    } else {
+                        window.location.href = "/dashboard";
+                    }
+
+                } catch (err) {
+                    errorAlert.textContent = err.message;
+                    errorAlert.classList.remove("d-none");
+                } finally {
+                    btn.disabled = false;
+                    spinner.classList.add("d-none");
+                    btnText.textContent = "Iniciar Sesión";
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

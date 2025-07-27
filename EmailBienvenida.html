@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a Plataforma Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="/static/css/auth.css" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="auth-card card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="text-center mb-0">¡Bienvenido a Plataforma Web!</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-center">
+                            <img src="{logo_url}" alt="Logo Plataforma Web" style="max-height: 80px;" class="mb-3">
+                        </p>
+                        
+                        <p>¡Hola {nombre_usuario}!</p>
+                        
+                        <p>Gracias por registrarte en Plataforma Web. Estamos encantados de tenerte con nosotros.</p>
+                        
+                        <div class="alert alert-light mt-4">
+                            <h5 class="alert-heading">Tus datos de acceso</h5>
+                            <hr>
+                            <div><strong>Usuario:</strong> {email_usuario}</div>
+                            <div><strong>Fecha de registro:</strong> {fecha_registro}</div>
+                        </div>
+
+                        <div class="alert alert-info mt-4">
+                            <h5 class="alert-heading">¡Comienza ahora!</h5>
+                            <p>Para activar tu cuenta y comenzar a usar nuestros servicios, por favor haz clic en el siguiente botón:</p>
+                            <div class="text-center mt-2">
+                                <a href="{enlace_activacion}" class="btn btn-success">Activar mi cuenta</a>
+                            </div>
+                        </div>
+
+                        <p class="mt-4">Si no realizaste este registro, por ignora este mensaje.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Términos y Condiciones -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Términos y Condiciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido de términos y condiciones -->
+                    <p>Aquí van los términos y condiciones de uso de la plataforma...</p>
+                    <!-- Más contenido -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/utils.js"></script>
+    <script src="/static/js/index.js"></script>
+</body>
+</html>

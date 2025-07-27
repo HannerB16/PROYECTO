@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página no encontrada - Error 404</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="/static/css/auth.css" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="auth-card card shadow">
+                    <div class="card-header bg-danger text-white">
+                        <h3 class="text-center mb-0">Error 404</h3>
+                        <p class="text-center mb-0 small">Página no encontrada</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center py-5">
+                            <i class="bi bi-exclamation-octagon display-1 text-danger mb-4"></i>
+                            <h4>La página que buscas no existe</h4>
+                            <p class="mb-4">Parece que has seguido un enlace incorrecto o la página ha sido movida.</p>
+                            
+                            <div class="d-flex justify-content-center gap-3 mb-4">
+                                <a href="/" class="btn btn-primary px-4">
+                                    <i class="bi bi-house-door"></i> Volver al inicio
+                                </a>
+                                <button id="report-error-btn" class="btn btn-danger px-4">
+                                    <i class="bi bi-bug-fill"></i> Reportar error
+                                </button>
+                            </div>
+                            <div id="error-report-form" class="card mb-3" style="display:none;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Reportar página faltante</h5>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="error-description" placeholder=" ">
+                                        <label for="error-description">Describe cómo llegaste aquí</label>
+                                    </div>
+                                    <button id="submit-error-btn" class="btn btn-danger w-100">
+                                        Enviar reporte
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div id="search-box" class="mt-4" style="display: none;">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="¿Qué estás buscando?">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="bi bi-search"></i> Buscar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Términos y Condiciones -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Términos y Condiciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido de términos y condiciones -->
+                    <p>Aquí van los términos y condiciones de uso de la plataforma...</p>
+                    <!-- Más contenido -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/utils.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reportBtn = document.getElementById('report-error-btn');
+            const reportForm = document.getElementById('error-report-form');
+            
+            // Error reporting toggle
+            reportBtn.addEventListener('click', function() {
+                reportForm.style.display = reportForm.style.display === 'none' ? 'block' : 'none';
+                reportBtn.textContent = reportForm.style.display === 'none' ? 
+                    '<i class="bi bi-bug-fill"></i> Reportar error' : 
+                    '<i class="bi bi-x"></i> Cancelar';
+            });
+            
+            // Submit error report
+            document.getElementById('submit-error-btn').addEventListener('click', function() {
+                const description = document.getElementById('error-description').value;
+                fetch('/api/error-report', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url: window.location.href,
+                        description: description 
+                    })
+                });
+                reportForm.innerHTML = '<div class="alert alert-success">¡Reporte enviado! Gracias.</div>';
+            });
+            
+            // Automatic error tracking
+            if(typeof track404Error === 'function') {
+                track404Error(window.location.href);
+            }
+        });
+    </script>
+</body>
+</html>

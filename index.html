@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Plataforma Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="/static/css/auth.css" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="auth-card card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="text-center mb-0">Bienvenido a Plataforma Web</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="/static/images/logo.png" alt="Logo" class="img-fluid mb-4" style="max-height: 120px;">
+                        <h4 class="mb-4">Tu solución integral para gestión de dispositivos</h4>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <i class="bi bi-shield-lock fs-1 text-primary"></i>
+                                        <h5 class="card-title mt-2">Seguridad</h5>
+                                        <p class="card-text">Protección avanzada para tus dispositivos</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <i class="bi bi-devices fs-1 text-primary"></i>
+                                        <h5 class="card-title mt-2">Control</h5>
+                                        <p class="card-text">Gestiona todos tus dispositivos en un solo lugar</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="/login" class="btn btn-primary btn-lg me-3">Iniciar Sesión</a>
+                            <a href="/registro" class="btn btn-outline-primary btn-lg">Registrarse</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Términos y Condiciones -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Términos y Condiciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido de términos y condiciones -->
+                    <p>Aquí van los términos y condiciones de uso de la plataforma...</p>
+                    <!-- Más contenido -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/utils.js"></script>
+    <script src="/static/js/index.js"></script>
+</body>
+</html>
