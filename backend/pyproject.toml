@@ -1,0 +1,34 @@
+[project]
+name = "auroraops-backend"
+version = "0.1.0"
+description = "AuroraOps API - plataforma moderna de operaciones impulsada por IA"
+authors = [
+  { name = "AuroraOps Team" }
+]
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi[standard]~=0.111",
+  "sqlmodel~=0.0.18",
+  "pydantic-settings~=2.3",
+  "passlib[bcrypt]~=1.7",
+  "python-jose[cryptography]~=3.3",
+  "email-validator~=2.1",
+  "alembic~=1.13",
+  "httpx~=0.27",
+  "redis~=5.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest~=8.2",
+  "pytest-asyncio~=0.23",
+  "anyio~=4.4"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = "-q"
